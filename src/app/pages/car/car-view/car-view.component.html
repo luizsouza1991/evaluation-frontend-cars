@@ -1,0 +1,18 @@
+<ng-template #modalcarview let-modal>
+    <div class="container">
+        <row>
+            <col-12 class="col-12 d-grid gap-2 mt-1 mr-3 d-md-flex justify-content-md-end">
+                <span (click)="closeModal()"><i class="fas fa-times float-right"></i></span>
+            </col-12>
+        </row>
+        <div class="row">
+            <div class="col-12 p-4">
+                <p><b>Modelo</b>: {{ car.veiculo }}  </p>
+                <p><b>Marca</b>: {{ car.marca }}    </p>
+                <p><b>Ano</b>: {{ car.ano }}      </p>
+                <p><b>Status:</b>: {{ car.vendido ? 'Vendido' : 'Disponível para venda' }}  </p>
+                <p class="description"><b>Descrição</b>: {{ car.descricao }}</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

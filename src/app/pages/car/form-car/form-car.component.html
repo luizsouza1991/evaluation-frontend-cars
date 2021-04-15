@@ -1,0 +1,43 @@
+<ng-template #modal let-modal>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 p-4">
+                <form #form="ngForm" (ngSubmit)="save()">
+                    <div class="form-group">
+                        <label for="veiculo">Veículo</label>
+                        <input type="text" id="veiculo" class="form-control" name="veiculo" required #n="ngModel" [(ngModel)]="car.veiculo" minlength="2">
+                        <small *ngIf="n.invalid && (n.dirty || n.touched)" class="text-danger">
+                            <span *ngIf="n.hasError('required')">Nome de carro é <i>obrigatório</i>.</span>
+                            <span *ngIf="n.hasError('minlength')">Nome de carro deve ter no minimo 2 caracteres.</span>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <input type="text" id="marca" name="marca" required #m="ngModel" [(ngModel)]="car.marca" min="4" class="form-control">
+                        <small *ngIf="m.invalid && (m.dirty || m.touched)" class="text-danger">
+                            <span *ngIf="m.hasError('required')">Nome da marca é <i>obrigatório</i>.</span>
+                            <span *ngIf="m.hasError('minlength')">Nome da marca deve ter no minimo 4 caracteres.</span>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ano">Ano</label>
+                        <input type="number" id="ano" name="ano" required #a="ngModel" [(ngModel)]="car.ano" min="1990" id="ano" class="form-control">
+                        <small *ngIf="a.invalid && (a.dirty || a.touched)" class="text-danger">
+                            <span *ngIf="a.hasError('required')">Ano é <i>obrigatório</i>.</span>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea class="form-control" name="descricao" required #d="ngModel" [(ngModel)]="car.descricao" id="descricao" cols="30" rows="5"></textarea>
+                        <small *ngIf="d.invalid && (d.dirty || d.touched)" class="text-danger">
+                            <span *ngIf="d.hasError('required')">Descrição é <i>obrigatório</i>.</span>
+                        </small>
+                    </div>
+                    <div class="d-grid gap-2 mt-3 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary" [disabled]="form.invalid" ><span class="color-secondary">Salvar</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
