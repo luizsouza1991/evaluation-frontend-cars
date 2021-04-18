@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgxIzitoastService } from 'ngx-izitoast';
 import { Constant } from 'src/app/constants/constants';
 import { BaseModel } from 'src/app/models/base/base.model';
 import { Car } from 'src/app/models/car.model';
@@ -22,7 +23,8 @@ export class FormCarComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private carService: CarService
+    private carService: CarService,
+    public iziToastService: NgxIzitoastService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,12 @@ export class FormCarComponent implements OnInit {
       this.update();
     } else {
       this.carService.create(this.car).subscribe((data: Car) => {
+        this.iziToastService.success({
+          title: 'Sucesso! ',
+          message: 'Veículo adicionado com sucesso',
+          position:  'topRight'
+        });
+
         this.car = new Car();
         this.modalService.dismissAll();
         this.addCar.emit(data);
@@ -48,6 +56,12 @@ export class FormCarComponent implements OnInit {
 
   public async update() {
     this.carService.update(this.car.uuid, this.car).subscribe((data: Car) => {
+      this.iziToastService.success({
+        title: 'Sucesso! ',
+        message: 'Veículo atualizado com sucesso',
+        position:  'topRight'
+      });
+
       this.edit = false;
       this.car = new Car();
       this.modalService.dismissAll();

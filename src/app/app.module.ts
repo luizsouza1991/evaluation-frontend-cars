@@ -10,6 +10,7 @@ import { FormCarComponent } from './pages/car/form-car/form-car.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CarViewComponent } from './pages/car/car-view/car-view.component';
+import { NgxIziToastModule } from 'ngx-izitoast';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CarViewComponent } from './pages/car/car-view/car-view.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    NgxIziToastModule
   ],
   providers: [
     CarService

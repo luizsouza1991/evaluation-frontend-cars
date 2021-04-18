@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgxIzitoastService } from 'ngx-izitoast';
 import { Constant } from 'src/app/constants/constants';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car/car.service';
@@ -29,7 +30,8 @@ export class CarComponent implements OnInit {
   carView: CarViewComponent
 
   constructor(
-    public carService: CarService
+    public carService: CarService,
+    public iziToastService: NgxIzitoastService
   ) { }
 
   ngOnInit(): void {
@@ -97,9 +99,31 @@ export class CarComponent implements OnInit {
   }
 
   public delete(car: Car) {
-    this.carService.destroy(car.uuid).subscribe((data) => {
-      this.removeFromList(car);
-    });
+    this.iziToastService.question({
+      timeout: 10000,
+      close: false,
+      position: 'center',
+      title: 'Atenção',
+      message: 'Deseja exluir esse registro?',
+      buttons: [
+        ['<button><b>Sim</b></button>', (instance, toast) => {
+          this.carService.destroy(car.uuid).subscribe((data) => {
+            this.iziToastService.success({
+              title: 'Sucesso! ',
+              message: 'Removido com sucesso',
+              position:  'topRight'
+            })
+            this.removeFromList(car);
+          });
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+        }, true],
+        ['<button>Não</button>', function (instance, toast) {
+ 
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+ 
+        }],
+      ]
+    })
   }
 
   public removeFromList(car: Car) {
@@ -126,6 +150,12 @@ export class CarComponent implements OnInit {
   public sellCar(car: Car) {
     this.carService.sellCar(car.uuid, {vendido: true}).subscribe((data: Car) => {
       this.unsoldCars--;
+      this.iziToastService.success({
+        title: 'Sucesso!',
+        message: 'Vendido com sucesso',
+        position:  'topRight'
+      })
+
       this.cars.map((c: Car) => {
         if (c.uuid == data.uuid) {
           c.vendido = data.vendido;
