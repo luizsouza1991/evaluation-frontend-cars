@@ -1,5 +1,10 @@
 <ng-template #modal let-modal>
     <div class="container">
+        <row>
+            <col-12 class="col-12 d-grid gap-2 mt-1 mr-3 d-md-flex justify-content-md-end">
+                <span (click)="closeModal()"><i class="fas fa-times float-right"></i></span>
+            </col-12>
+        </row>
         <div class="row">
             <div class="col-12 p-4">
                 <form #form="ngForm" (ngSubmit)="save()">
@@ -13,10 +18,11 @@
                     </div>
                     <div class="form-group">
                         <label for="marca">Marca</label>
-                        <input type="text" id="marca" name="marca" required #m="ngModel" [(ngModel)]="car.marca" min="4" class="form-control">
+                        <select id="marca" name="marca" required #m="ngModel" [(ngModel)]="car.marca" class="form-control">
+                            <option *ngFor="let item of brands" [value]="item.nome">{{ item.nome }}</option>
+                        </select>
                         <small *ngIf="m.invalid && (m.dirty || m.touched)" class="text-danger">
                             <span *ngIf="m.hasError('required')">Nome da marca é <i>obrigatório</i>.</span>
-                            <span *ngIf="m.hasError('minlength')">Nome da marca deve ter no minimo 4 caracteres.</span>
                         </small>
                     </div>
                     <div class="form-group">

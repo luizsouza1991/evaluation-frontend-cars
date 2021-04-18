@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car/car.service';
 
@@ -12,6 +12,7 @@ export class CarViewComponent implements OnInit {
 
   public car: Car = new Car();
   public uuid: string = null;
+  public modalOptions: NgbModalOptions = {};
 
   @ViewChild('modalcarview') modalcarview: any;
 
@@ -27,7 +28,9 @@ export class CarViewComponent implements OnInit {
   public openModal()
   {
     this.getCar(this.uuid);
-    this.modalService.open(this.modalcarview);
+    this.modalOptions.backdrop = 'static';
+    this.modalOptions.keyboard = false;
+    this.modalService.open(this.modalcarview, this.modalOptions);
   }
 
   public async getCar(uuid: string) {

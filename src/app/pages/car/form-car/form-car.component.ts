@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { Constant } from 'src/app/constants/constants';
 import { BaseModel } from 'src/app/models/base/base.model';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car/car.service';
@@ -13,6 +14,8 @@ export class FormCarComponent implements OnInit {
 
   public car: Car = new Car();
   public edit: boolean = false;
+  public brands: any = Constant.MARCAS;
+  public modalOptions: NgbModalOptions = {};
 
   @ViewChild('modal') modal: any;
   @Output() addCar = new EventEmitter<BaseModel>();
@@ -26,7 +29,9 @@ export class FormCarComponent implements OnInit {
   }
 
   public async openModal() {
-    this.modalService.open(this.modal);
+    this.modalOptions.backdrop = 'static';
+    this.modalOptions.keyboard = false;
+    this.modalService.open(this.modal, this.modalOptions);
   }
 
   public async save() {
@@ -47,5 +52,9 @@ export class FormCarComponent implements OnInit {
       this.car = new Car();
       this.modalService.dismissAll();
     })
+  }
+
+  public closeModal() {
+    this.modalService.dismissAll();
   }
 }
