@@ -125,6 +125,7 @@ export class CarComponent implements OnInit {
 
   public sellCar(car: Car) {
     this.carService.sellCar(car.uuid, {vendido: true}).subscribe((data: Car) => {
+      this.unsoldCars--;
       this.cars.map((c: Car) => {
         if (c.uuid == data.uuid) {
           c.vendido = data.vendido;
