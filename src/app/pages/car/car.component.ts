@@ -58,17 +58,16 @@ export class CarComponent implements OnInit {
           this.carRegisterLastWeek++;
         }
 
-        this.marcas.map((marca: any) => {
-          if (marca.nome == car.marca) {
-            this.carsForBrand[marca.nome]++;
-          }
-        })
+        if(isNaN(this.carsForBrand[car.marca])) {
+          this.carsForDecade[car.marca] = 0;
+        }
+        this.carsForBrand[car.marca]++;
 
         if (car.ano >= decadeCar && car.ano <= (decadeCar + 9)) {
           if(isNaN(this.carsForDecade[decadeCar])) {
             this.carsForDecade[decadeCar] = 0;
           }
-          this.carsForDecade[decadeCar] = this.carsForDecade[decadeCar] + 1;
+          this.carsForDecade[decadeCar]++;
         }
       })
       this.carsForDecadeFormat();
