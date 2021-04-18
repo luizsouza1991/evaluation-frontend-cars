@@ -50,6 +50,14 @@ export class FormCarComponent implements OnInit {
         this.car = new Car();
         this.modalService.dismissAll();
         this.addCar.emit(data);
+      },
+      (err) => {
+        let { error } = err;
+        this.iziToastService.error({
+          title: 'Erro',
+          message: error.message,
+          position:  'topRight'
+        })
       });
     }
   }

@@ -16,7 +16,6 @@ export class CarComponent implements OnInit {
   public cars: Car[] = [];
   public search: string = null;
   public carRegisterLastWeek: number = 0;
-  public carForDecade: number = 0;
   public unsoldCars: number = 0;
   public marcas: any = Constant.MARCAS;
   public carsForBrand: any = [];
@@ -35,7 +34,6 @@ export class CarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initCarsForBrand();
     this.getCars();
   }
 
@@ -46,6 +44,10 @@ export class CarComponent implements OnInit {
   }
 
   public async getCars() {
+    this.unsoldCars = 0;
+    this.carRegisterLastWeek = 0;
+    this.carsForDecade = [];
+    this.initCarsForBrand();
     let currentDate = new Date();
     let lastWeekDate = currentDate.setDate(currentDate.getDate() - 7);
 
@@ -61,7 +63,7 @@ export class CarComponent implements OnInit {
         }
 
         if(isNaN(this.carsForBrand[car.marca])) {
-          this.carsForDecade[car.marca] = 0;
+          this.carsForBrand[car.marca] = 0;
         }
         this.carsForBrand[car.marca]++;
 
