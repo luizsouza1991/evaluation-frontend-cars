@@ -6,6 +6,30 @@
         <div class="col-12 mt-3">
             <div class="card">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <p><b>Registrados na última semana: </b>{{ carRegisterLastWeek }}</p>
+                        </div>
+                        <div class="col-3">
+                            <p><b>Carros não vendidos:</b> {{ unsoldCars }}</p>
+                        </div>
+                        <div class="col-3">
+                            <b>Carros por marca:</b>
+                            <div *ngFor="let marca of marcas; let i=index">
+                                <span> {{marca.nome}}: {{ carsForBrand[marca.nome] }}</span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <b>Carros por marca:</b>
+                            <div *ngFor="let decada of carsForFormat">
+                                Década {{ decada.decada }}: {{ decada.qtd_cars }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
